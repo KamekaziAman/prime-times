@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="flex items-center justify-center py-15">
+  <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 space-y-6">
+    
+    <!-- Title -->
+    <div class="text-center">
+      <h1 class="text-3xl font-extrabold text-red-600 dark:text-red-400">Delete Article</h1>
+      <p class="text-gray-500 dark:text-gray-400 mt-2">This action cannot be undone</p>
+    </div>
+
+    <!-- Article Info -->
+    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ post.title }}</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">{{ post.description|truncatechars:100 }}</p>
+      <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+        <span>By {{ post.author }}</span>
+        <span>{{ post.created_at|date:"M d, Y" }}</span>
+      </div>
+    </div>
+
+    <!-- Warning Message -->
+    <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 text-red-600 dark:text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+        </svg>
+        <p class="text-sm text-red-700 dark:text-red-300">
+          Are you sure you want to delete this article? This action cannot be undone.
+        </p>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex space-x-3">
+      <a href="{% url 'home' %}" 
+        class="flex-1 py-3 px-4 text-center text-gray-700 dark:text-gray-300 font-medium rounded-xl border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+        Cancel
+      </a>
+      <form method="post" class="flex-1">
+        {% csrf_token %}
+        <button type="submit" 
+          class="w-full py-3 px-4 text-center text-white font-medium rounded-xl bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700 transition">
+          Delete Article
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

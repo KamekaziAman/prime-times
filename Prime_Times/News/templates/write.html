@@ -1,0 +1,63 @@
+<!--prettier-ignore-->
+{% extends "base.html" %}
+{% block content %}
+
+<div class="text-gray-800 py-6">
+  <div class="max-w-4xl mx-auto">
+    
+
+    
+    <form method="post" enctype="multipart/form-data" class="space-y-10">
+      {% csrf_token %}
+
+      <!-- Title -->
+      <div>
+        {{ form.title }}
+        {% if form.title.errors %}
+          <p class="text-red-400 text-sm mt-1">{{ form.title.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Description -->
+      <div>
+        {{ form.description }}
+        {% if form.description.errors %}
+          <p class="text-red-400 text-sm mt-1">{{ form.description.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Author -->
+      <div>
+        {{ form.author }}
+        {% if form.author.errors %}
+          <p class="text-red-400 text-sm mt-1">{{ form.author.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Image -->
+      <div class="space-y-2 ">
+        {{ form.image }}
+        {% if form.image.errors %}
+          <p class="text-red-400 text-sm mt-1 ">{{ form.image.errors.0 }}</p>
+        {% endif %}
+        <p class="text-gray-400 text-sm">Upload an image file (JPG, PNG, GIF)</p>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex space-x-4 pt-6">
+        <button type="submit" class="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition duration-200">
+          {% if is_edit %}
+            Update Post
+          {% else %}
+            Create Post
+          {% endif %}
+        </button>
+        <a href="{% url 'home' %}" class="px-6 py-2 rounded-lg bg-gray-600 hover:bg-gray-700 text-white font-medium transition duration-200">
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
